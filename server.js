@@ -42,10 +42,16 @@ function initDB() {
             totalPurchases: 0,
             startDate: new Date().toISOString().split('T')[0],
             streak: 0,
-            lastActiveDate: new Date().toISOString().split('T')[0]
+            lastActiveDate: new Date().toISOString().split('T')[0],
+            shop: [
+                { name: 'Свидание в кафе', price: 300 },
+                { name: 'Купить вкусняшки', price: 150 },
+                { name: 'Совместный фильм', price: 100 },
+                { name: 'Подарок', price: 500 }
+            ]
         };
         fs.writeFileSync(DB_PATH, JSON.stringify(defaultDB, null, 2));
-        console.log('✅ База данных создана');
+        console.log('✅ База данных создана с товарами');
     }
 }
 
@@ -58,6 +64,22 @@ function writeDB(data) {
 }
 
 initDB();
+
+// Создаём задания на сегодня, если их нет
+const db = readDB();
+const today = new Date().toISOString().split('T')[0];
+const hasTodayTasks = db.tasks.some(t => t.date === today);
+if (!hasTodayTasks) {
+    const morning = { id: Date.now() + '_morning', text: '☀️ Пожелать доброе утро', date: today, done: false, confirmed: false, author: null, pending: false };
+    const night = { id: Date.now() + '_night', text: '🌙 Пожелать спокойной ночи', date: today, done: false, confirmed: false, author: null, pending: false };
+    const extras = ['❤️ Обнять', '🍳 Приготовить завтрак', '🎬 Посмотреть фильм', '🚶 Прогуляться', '💆 Сделать массаж', '☕ Сделать кофе', '📖 Почитать вместе', '🎵 Послушать музыку'];
+    const extraTask = { id: Date.now() + '_extra', text: extras[Math.floor(Math.random() * extras.length)], date: today, done: false, confirmed: false, author: null, pending: false };
+    db.tasks = [morning, night, extraTask];
+    writeDB(db);
+    console.log('✅ Задания на сегодня созданы');
+}
+
+// ============ API ============
 
 app.get('/api/data', (req, res) => {
     try {
@@ -113,6 +135,7 @@ app.post('/api/task/confirm', (req, res) => {
         db.users['Соня'].coins += REWARD;
         db.totalCoinsEarned += REWARD * 2;
         db.totalTasksCompleted += 1;
+        
         if (db.totalTasksCompleted >= 1) {
             const ach = db.achievements.find(a => a.id === 'first_task');
             if (ach && !ach.unlocked) { ach.unlocked = true;
@@ -204,9 +227,11 @@ app.post('/api/tasks/reset', (req, res) => {
         const extraTask = { id: Date.now() + '_extra', text: randomExtra, date: today, done: false, confirmed: false,
             author: null, pending: false };
         db.tasks.push(morning, night, extraTask);
+        writeDB(db);
+        res.json({ success: true, message: 'Задания созданы' });
+    } else {
+        res.json({ success: true, message: 'Задания уже есть' });
     }
-    writeDB(db);
-    res.json({ success: true });
 });
 
 app.listen(PORT, '0.0.0.0', () => {
