@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love ❤️ Якуб + Соня</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container" id="app" style="display:none;">
+        <!-- Шапка -->
+        <header class="header">
+            <h1>❤️ Якуб + Соня</h1>
+            <div class="header-right">
+                <div class="coins-display">
+                    <span class="coin-yakub">🪙 <span id="coinsYakub">500</span> Якуб</span>
+                    <span class="coin-sonya">🪙 <span id="coinsSonya">500</span> Соня</span>
+                </div>
+                <div class="user-info">
+                    <span id="currentUser">Якуб</span>
+                    <button id="logoutBtn">🚪</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Навигация -->
+        <nav class="tabs">
+            <button class="tab active" data-tab="home">🏠 Главная</button>
+            <button class="tab" data-tab="tasks">✅ Задания</button>
+            <button class="tab" data-tab="shop">🛍️ Магазин</button>
+            <button class="tab" data-tab="calendar">📅 Календарь</button>
+            <button class="tab" data-tab="dates">❤️ Даты</button>
+            <button class="tab" data-tab="history">📜 История</button>
+            <button class="tab" data-tab="goals">🎯 Цели</button>
+            <button class="tab" data-tab="achievements">🏆 Достижения</button>
+            <button class="tab" data-tab="stats">📊 Статистика</button>
+        </nav>
+
+        <!-- Главная -->
+        <section id="tab-home" class="tab-content active">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="emoji">👫</div>
+                    <div class="number" id="daysTogether">0</div>
+                    <div class="label">дней вместе</div>
+                </div>
+                <div class="stat-card">
+                    <div class="emoji">🔥</div>
+                    <div class="number" id="streakDays">0</div>
+                    <div class="label">дней серия</div>
+                </div>
+                <div class="stat-card">
+                    <div class="emoji">🪙</div>
+                    <div class="number" id="totalCoins">0</div>
+                    <div class="label">всего монет</div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3>🪙 Монеты</h3>
+                <div class="coins-grid">
+                    <div class="coin-card yakub">
+                        <span class="name">🔵 Якуб</span>
+                        <span class="value" id="homeCoinsYakub">500</span>
+                        <span class="icon">🪙</span>
+                    </div>
+                    <div class="coin-card sonya">
+                        <span class="name">🔴 Соня</span>
+                        <span class="value" id="homeCoinsSonya">500</span>
+                        <span class="icon">🪙</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Задания -->
+        <section id="tab-tasks" class="tab-content">
+            <div id="tasksContainer"></div>
+        </section>
+
+        <!-- Магазин -->
+        <section id="tab-shop" class="tab-content">
+            <div class="card">
+                <h3>❤️ Наши желания</h3>
+                <div id="shopContainer"></div>
+            </div>
+        </section>
+
+        <!-- Календарь -->
+        <section id="tab-calendar" class="tab-content">
+            <div class="card">
+                <h3>📅 События</h3>
+                <div id="calendarContainer"></div>
+            </div>
+        </section>
+
+        <!-- Даты -->
+        <section id="tab-dates" class="tab-content">
+            <div class="card">
+                <h3>❤️ Важные даты</h3>
+                <div id="datesContainer"></div>
+            </div>
+        </section>
+
+        <!-- История -->
+        <section id="tab-history" class="tab-content">
+            <div class="card">
+                <h3>📜 История пары</h3>
+                <div id="historyContainer"></div>
+            </div>
+        </section>
+
+        <!-- Цели -->
+        <section id="tab-goals" class="tab-content">
+            <div class="card">
+                <h3>🎯 Совместные цели</h3>
+                <div id="goalsContainer"></div>
+            </div>
+        </section>
+
+        <!-- Достижения -->
+        <section id="tab-achievements" class="tab-content">
+            <div class="card">
+                <h3>🏆 Достижения</h3>
+                <div id="achievementsContainer"></div>
+            </div>
+        </section>
+
+        <!-- Статистика -->
+        <section id="tab-stats" class="tab-content">
+            <div class="card">
+                <h3>📊 Статистика</h3>
+                <div id="statsContainer"></div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Модальное окно для покупки -->
+    <div class="modal" id="purchaseModal">
+        <div class="modal-content">
+            <h3>📅 Выберите дату</h3>
+            <p id="modalItemName"></p>
+            <input type="date" id="modalDate">
+            <div class="modal-buttons">
+                <button class="confirm" id="modalConfirm">Подтвердить</button>
+                <button class="cancel" id="modalCancel">Отмена</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

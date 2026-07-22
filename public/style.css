@@ -1,0 +1,494 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #ffe6e9, #ffd9e2);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* ===== ВХОД ===== */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.login-box {
+    background: white;
+    border-radius: 40px;
+    padding: 50px 40px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 20px 60px rgba(192, 57, 90, 0.2);
+}
+
+.login-box h1 {
+    text-align: center;
+    font-size: 3rem;
+    color: #c0395a;
+}
+
+.login-box .subtitle {
+    text-align: center;
+    color: #7f3f4a;
+    margin-bottom: 30px;
+}
+
+.login-box input {
+    width: 100%;
+    padding: 14px 18px;
+    border: 2px solid #f0c0c9;
+    border-radius: 30px;
+    margin-bottom: 12px;
+    font-size: 1rem;
+    outline: none;
+}
+
+.login-box input:focus {
+    border-color: #c0395a;
+}
+
+.login-box button {
+    width: 100%;
+    padding: 14px;
+    background: #c0395a;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.login-box button:hover {
+    background: #a9324b;
+}
+
+.error {
+    color: #c0395a;
+    text-align: center;
+    margin-top: 12px;
+    display: none;
+}
+
+/* ===== ПРИЛОЖЕНИЕ ===== */
+.app-container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* Шапка */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    border-radius: 30px;
+    padding: 15px 25px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.header h1 {
+    color: #c0395a;
+    font-size: 1.4rem;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.coins-display {
+    display: flex;
+    gap: 20px;
+    font-weight: 700;
+    background: #fdf7f9;
+    padding: 8px 18px;
+    border-radius: 30px;
+}
+
+.coin-yakub {
+    color: #2980b9;
+}
+.coin-sonya {
+    color: #e74c6f;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #ffe6e9;
+    padding: 6px 16px;
+    border-radius: 30px;
+    font-weight: 600;
+}
+
+.user-info button {
+    background: none;
+    border: none;
+    color: #c0395a;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+/* Табы */
+.tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.tab {
+    padding: 8px 18px;
+    border: none;
+    background: #f8e6ea;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 600;
+    color: #5a2d36;
+    transition: 0.3s;
+}
+
+.tab.active {
+    background: #c0395a;
+    color: white;
+}
+
+.tab:hover {
+    transform: translateY(-2px);
+}
+
+.tab-content {
+    display: none;
+    animation: fadeIn 0.3s;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Карточки */
+.card {
+    background: white;
+    border-radius: 24px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.card h3 {
+    color: #3d1e26;
+    margin-bottom: 12px;
+}
+
+/* Статистика */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.stat-card {
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.stat-card .emoji {
+    font-size: 2rem;
+}
+.stat-card .number {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #c0395a;
+}
+.stat-card .label {
+    color: #7f3f4a;
+    font-size: 0.9rem;
+}
+
+/* Монеты */
+.coins-grid {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.coin-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 28px;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.coin-card.yakub {
+    background: #ebf5fb;
+    border: 2px solid #85c1e9;
+}
+
+.coin-card.sonya {
+    background: #fdedec;
+    border: 2px solid #f1948a;
+}
+
+.coin-card .value {
+    color: #c0395a;
+    font-size: 1.4rem;
+}
+
+/* Задания */
+.task-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background: #fdf7f9;
+    border-radius: 16px;
+    margin-bottom: 10px;
+    border-left: 4px solid #f0c0c9;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.task-item.done {
+    border-left-color: #27ae60;
+    background: #eafaf1;
+}
+
+.task-item.pending {
+    border-left-color: #f1c40f;
+    background: #fef9e7;
+}
+
+.task-item .reward {
+    font-size: 0.75rem;
+    color: #27ae60;
+    background: #eafaf1;
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-weight: 600;
+}
+
+.btn {
+    padding: 6px 18px;
+    border: none;
+    border-radius: 30px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-primary {
+    background: #c0395a;
+    color: white;
+}
+.btn-primary:hover {
+    background: #a9324b;
+}
+
+.btn-success {
+    background: #27ae60;
+    color: white;
+}
+.btn-success:hover {
+    background: #1e8449;
+}
+
+.btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* Магазин */
+.shop-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 18px;
+    background: #fdf7f9;
+    border-radius: 16px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.shop-item .price {
+    font-weight: 700;
+    color: #c0395a;
+}
+
+/* История */
+.history-item {
+    padding: 10px 16px;
+    background: #fdf7f9;
+    border-radius: 12px;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.history-item .date {
+    color: #888;
+    font-size: 0.85rem;
+}
+
+/* Достижения */
+.achievement-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 12px;
+}
+
+.achievement-item {
+    background: #fdf7f9;
+    padding: 14px;
+    border-radius: 16px;
+    text-align: center;
+}
+
+.achievement-item.locked {
+    opacity: 0.4;
+    filter: grayscale(1);
+}
+
+.achievement-item .emoji {
+    font-size: 2rem;
+}
+
+/* Прогресс */
+.progress-bar {
+    width: 100%;
+    height: 24px;
+    background: #f0c0c9;
+    border-radius: 30px;
+    overflow: hidden;
+    margin: 8px 0;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #c0395a, #e74c6f);
+    border-radius: 30px;
+    transition: width 0.5s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    font-size: 0.8rem;
+}
+
+/* Модальное окно */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 30px;
+    padding: 30px;
+    max-width: 400px;
+    width: 90%;
+}
+
+.modal-content input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #f0c0c9;
+    border-radius: 30px;
+    margin: 12px 0;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.modal-buttons button {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 30px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.modal-buttons .confirm {
+    background: #c0395a;
+    color: white;
+}
+
+.modal-buttons .cancel {
+    background: #ddd;
+}
+
+/* Адаптив */
+@media (max-width: 600px) {
+    .header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .header-right {
+        justify-content: space-between;
+    }
+    .coins-display {
+        font-size: 0.85rem;
+        padding: 6px 12px;
+    }
+    .tab {
+        font-size: 0.75rem;
+        padding: 6px 12px;
+    }
+    .stats-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    .coins-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+}
