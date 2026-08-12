@@ -5,7 +5,6 @@ let refreshInterval = null;
 
 // ============ ИНИЦИАЛИЗАЦИЯ ============
 document.addEventListener('DOMContentLoaded', function() {
-    // Получаем пользователя из localStorage
     currentUser = localStorage.getItem('loveUser');
     if (!currentUser) {
         window.location.href = '/';
@@ -14,7 +13,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     document.getElementById('currentUser').textContent = currentUser;
     
-    // Обработчики
     document.getElementById('logoutBtn').addEventListener('click', logout);
     
     document.querySelectorAll('.tab').forEach(tab => {
@@ -29,7 +27,6 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('modalConfirm').addEventListener('click', confirmPurchase);
     document.getElementById('modalCancel').addEventListener('click', cancelPurchase);
     
-    // Загружаем данные
     loadData();
     refreshInterval = setInterval(loadData, 5000);
 });
@@ -46,6 +43,8 @@ async function loadData() {
         const res = await fetch(`${API_URL}/data`);
         data = await res.json();
         renderAll();
+        loadPhotos();
+        loadMemory();
     } catch (error) {
         console.error('Ошибка загрузки:', error);
     }
@@ -329,4 +328,94 @@ function renderStatsPage() {
             <div class="stat-item"><strong>🔥 Серия:</strong> ${data.streak} дней</div>
         </div>
     `;
+}
+
+// ============ ФОТО ============
+
+// Загрузить фото
+async function uploadPhoto() {
+    const fileInput = document.getElementById('photoInput');
+    const desc = document.getElementById('photoDesc').value.trim();
+    
+    if (!fileInput.files || !fileInput.files[0]) {
+        alert('Выберите фото');
+        return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = async function(e) {
+        const imageData = e.target.result;
+        
+        const res = await fetch('/api/photos/upload', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                image: imageData,
+                description: desc || 'Без описания',
+                author: currentUser
+            })
+        });
+        const result = await res.json();
+        
+        if (result.success) {
+            document.getElementById('photoInput').value = '';
+            document.getElementById('photoDesc').value = '';
+            loadPhotos();
+            loadMemory();
+        } else {
+            alert('Ошибка загрузки фото');
+        }
+    };
+    reader.readAsDataURL(fileInput.files[0]);
+}
+
+// Загрузить все фото
+async function loadPhotos() {
+    const res = await fetch('/api/photos');
+    const photos = await res.json();
+    
+    const gallery = document.getElementById('photoGallery');
+    if (!gallery) return;
+    
+    if (!photos || photos.length === 0) {
+        gallery.innerHTML = '<p style="color:#7f3f4a;">Фото пока нет 📷</p>';
+        return;
+    }
+    
+    gallery.innerHTML = photos.map(p => `
+        <div style="background:white; border-radius:16px; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+            <img src="${p.image_url}" alt="${p.description}" style="width:100%; height:150px; object-fit:cover;">
+            <div style="padding:10px; font-size:0.85rem;">
+                <strong>${p.description}</strong>
+                <div style="font-size:0.7rem; color:#888;">${p.author} • ${p.date}</div>
+            </div>
+        </div>
+    `).join('');
+}
+
+// Загрузить воспоминание
+async function loadMemory() {
+    try {
+        const res = await fetch('/api/photos/memory');
+        const memory = await res.json();
+        
+        const section = document.getElementById('memory-section');
+        if (!section) return;
+        
+        if (memory) {
+            const date = new Date(memory.date);
+            const months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
+            const formattedDate = `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
+            
+            document.getElementById('memoryDate').textContent = formattedDate;
+            document.getElementById('memoryImage').src = memory.image_url;
+            document.getElementById('memoryDescription').textContent = `"${memory.description}"`;
+            document.getElementById('memoryAuthor').textContent = `📸 ${memory.author}`;
+            section.style.display = 'block';
+        } else {
+            section.style.display = 'none';
+        }
+    } catch (error) {
+        console.error('Ошибка загрузки воспоминания:', error);
+    }
 }
