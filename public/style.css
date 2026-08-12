@@ -117,12 +117,8 @@ body {
     border-radius: 30px;
 }
 
-.coin-yakub {
-    color: #2980b9;
-}
-.coin-sonya {
-    color: #e74c6f;
-}
+.coin-yakub { color: #2980b9; }
+.coin-sonya { color: #e74c6f; }
 
 .user-info {
     display: flex;
@@ -180,14 +176,8 @@ body {
 }
 
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 /* Карточки */
@@ -220,18 +210,9 @@ body {
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
 }
 
-.stat-card .emoji {
-    font-size: 2rem;
-}
-.stat-card .number {
-    font-size: 2.5rem;
-    font-weight: 800;
-    color: #c0395a;
-}
-.stat-card .label {
-    color: #7f3f4a;
-    font-size: 0.9rem;
-}
+.stat-card .emoji { font-size: 2rem; }
+.stat-card .number { font-size: 2.5rem; font-weight: 800; color: #c0395a; }
+.stat-card .label { color: #7f3f4a; font-size: 0.9rem; }
 
 /* Монеты */
 .coins-grid {
@@ -467,7 +448,34 @@ body {
     background: #ddd;
 }
 
-/* Адаптив */
+/* ===== ФОТО ===== */
+.photo-upload {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.photo-upload input[type="file"] {
+    flex: 1;
+    min-width: 200px;
+}
+
+.photo-upload input[type="text"] {
+    flex: 2;
+    min-width: 200px;
+    padding: 8px 14px;
+    border: 2px solid #f0c0c9;
+    border-radius: 30px;
+}
+
+.memory-card {
+    background: linear-gradient(135deg, #fff5f7, #ffe6e9);
+    border: 2px solid #c0395a;
+    text-align: center;
+}
+
+/* ===== АДАПТИВ ===== */
 @media (max-width: 600px) {
     .header {
         flex-direction: column;
@@ -490,5 +498,12 @@ body {
     .coins-grid {
         flex-direction: column;
         align-items: center;
+    }
+    .photo-upload {
+        flex-direction: column;
+    }
+    .photo-upload input[type="file"],
+    .photo-upload input[type="text"] {
+        width: 100%;
     }
 }
