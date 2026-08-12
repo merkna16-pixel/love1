@@ -35,10 +35,13 @@ app.get('/api/data', async (req, res) => {
             supabase.from('shop').select('*')
         ]);
 
-        const usersMap = {};
-        users.data.forEach(u => {
-            usersMap[u.name] = { password: u.password, coins: u.coins };
-        });
+       const usersMap = {};
+// Добавляем проверку, чтобы код не падал, если данных нет
+if (users.data && Array.isArray(users.data)) {
+    users.data.forEach(u => {
+        usersMap[u.name] = { password: u.password, coins: u.coins };
+    });
+}
 
         const data = {
             users: usersMap,
