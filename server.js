@@ -238,6 +238,64 @@ app.post('/api/tasks/reset', async (req, res) => {
     }
 });
 
+// ============ ФОТО ============
+
+// Загрузить фото
+app.post('/api/photos/upload', async (req, res) => {
+    const { image, description, author } = req.body;
+    const today = new Date().toISOString().split('T')[0];
+    
+    const { data, error } = await supabase
+        .from('photos')
+        .insert({
+            image_url: image,
+            description: description || '',
+            author: author,
+            date: today,
+            created_at: new Date().toISOString()
+        })
+        .select();
+
+    if (!error && data) {
+        res.json({ success: true, photo: data[0] });
+    } else {
+        res.json({ success: false, error: error ? error.message : 'Ошибка загрузки' });
+    }
+});
+
+// Получить все фото
+app.get('/api/photos', async (req, res) => {
+    const { data, error } = await supabase
+        .from('photos')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+    if (!error) {
+        res.json(data || []);
+    } else {
+        res.json([]);
+    }
+});
+
+// Получить воспоминание (фото за месяц назад)
+app.get('/api/photos/memory', async (req, res) => {
+    const monthAgo = new Date();
+    monthAgo.setMonth(monthAgo.getMonth() - 1);
+    const dateStr = monthAgo.toISOString().split('T')[0];
+
+    const { data, error } = await supabase
+        .from('photos')
+        .select('*')
+        .eq('date', dateStr)
+        .limit(1);
+
+    if (!error && data && data.length > 0) {
+        res.json(data[0]);
+    } else {
+        res.json(null);
+    }
+});
+
 // ============ ЗАПУСК ============
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`❤️ Love Server запущен на порту ${PORT}`);
