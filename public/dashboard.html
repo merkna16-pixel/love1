@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Love ❤️ Якуб + Соня</title>
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="app-container" id="app">
@@ -33,10 +33,11 @@
             <button class="tab" data-tab="history">📜 История</button>
             <button class="tab" data-tab="goals">🎯 Цели</button>
             <button class="tab" data-tab="achievements">🏆 Достижения</button>
+            <button class="tab" data-tab="photos">📷 Фото</button>
             <button class="tab" data-tab="stats">📊 Статистика</button>
         </nav>
 
-        <!-- Главная -->
+        <!-- ГЛАВНАЯ -->
         <section id="tab-home" class="tab-content active">
             <div class="stats-grid">
                 <div class="stat-card">
@@ -56,6 +57,18 @@
                 </div>
             </div>
             
+            <!-- ВОСПОМИНАНИЯ -->
+            <div id="memory-section" style="display:none;">
+                <div class="card memory-card">
+                    <h3>📸 В этот день <span id="memoryDate"></span></h3>
+                    <div style="text-align:center; margin: 10px 0;">
+                        <img id="memoryImage" src="" alt="Воспоминание" style="max-width:100%; max-height:300px; border-radius:16px; object-fit:cover;">
+                    </div>
+                    <p id="memoryDescription" style="color:#7f3f4a; font-style:italic;"></p>
+                    <p style="font-size:0.8rem; color:#888;" id="memoryAuthor"></p>
+                </div>
+            </div>
+
             <div class="card">
                 <h3>🪙 Монеты</h3>
                 <div class="coins-grid">
@@ -73,12 +86,12 @@
             </div>
         </section>
 
-        <!-- Задания -->
+        <!-- ЗАДАНИЯ -->
         <section id="tab-tasks" class="tab-content">
             <div id="tasksContainer"></div>
         </section>
 
-        <!-- Магазин -->
+        <!-- МАГАЗИН -->
         <section id="tab-shop" class="tab-content">
             <div class="card">
                 <h3>❤️ Наши желания</h3>
@@ -86,7 +99,7 @@
             </div>
         </section>
 
-        <!-- Календарь -->
+        <!-- КАЛЕНДАРЬ -->
         <section id="tab-calendar" class="tab-content">
             <div class="card">
                 <h3>📅 События</h3>
@@ -94,7 +107,7 @@
             </div>
         </section>
 
-        <!-- Даты -->
+        <!-- ДАТЫ -->
         <section id="tab-dates" class="tab-content">
             <div class="card">
                 <h3>❤️ Важные даты</h3>
@@ -102,7 +115,7 @@
             </div>
         </section>
 
-        <!-- История -->
+        <!-- ИСТОРИЯ -->
         <section id="tab-history" class="tab-content">
             <div class="card">
                 <h3>📜 История пары</h3>
@@ -110,7 +123,7 @@
             </div>
         </section>
 
-        <!-- Цели -->
+        <!-- ЦЕЛИ -->
         <section id="tab-goals" class="tab-content">
             <div class="card">
                 <h3>🎯 Совместные цели</h3>
@@ -118,7 +131,7 @@
             </div>
         </section>
 
-        <!-- Достижения -->
+        <!-- ДОСТИЖЕНИЯ -->
         <section id="tab-achievements" class="tab-content">
             <div class="card">
                 <h3>🏆 Достижения</h3>
@@ -126,7 +139,20 @@
             </div>
         </section>
 
-        <!-- Статистика -->
+        <!-- ФОТО -->
+        <section id="tab-photos" class="tab-content">
+            <div class="card">
+                <h3>📷 Наши моменты</h3>
+                <div class="photo-upload">
+                    <input type="file" id="photoInput" accept="image/*">
+                    <input type="text" id="photoDesc" placeholder="Описание..." style="flex:1; padding:8px 14px; border:2px solid #f0c0c9; border-radius:30px;">
+                    <button class="btn btn-primary" onclick="uploadPhoto()">📤 Загрузить</button>
+                </div>
+                <div id="photoGallery" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(150px,1fr)); gap:15px; margin-top:15px;"></div>
+            </div>
+        </section>
+
+        <!-- СТАТИСТИКА -->
         <section id="tab-stats" class="tab-content">
             <div class="card">
                 <h3>📊 Статистика</h3>
@@ -148,6 +174,6 @@
         </div>
     </div>
 
-    <script src="/script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
